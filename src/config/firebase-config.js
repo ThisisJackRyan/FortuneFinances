@@ -8,7 +8,13 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  // put info here jack has it
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: "fortunefinances-44a66.firebaseapp.com",
+  projectId: "fortunefinances-44a66",
+  storageBucket: "fortunefinances-44a66.firebasestorage.app",
+  messagingSenderId: "947130496579",
+  appId: "1:947130496579:web:5609cfaad6fc68640986f6",
+  measurementId: "G-P46769PGE2"
 };
 
 // Initialize Firebase
