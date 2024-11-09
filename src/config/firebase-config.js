@@ -8,7 +8,8 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  //apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: "AIzaSyBw09suEX8oKDFlsUUGbbPjCXelMZLJRXQ",
   authDomain: "fortunefinances-44a66.firebaseapp.com",
   projectId: "fortunefinances-44a66",
   storageBucket: "fortunefinances-44a66.firebasestorage.app",
@@ -19,7 +20,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const analytics = getAnalytics(app);
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const db = getFirestore(app);
+
+export const analytics = getAnalytics(app);
+export const db = getFirestore(app);

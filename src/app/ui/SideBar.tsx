@@ -1,26 +1,42 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { DocData } from "../../config/DocData";
+
 
 interface SideBarProps {
   isVisible: boolean;
   toggleSidebar: () => void;
-  user: any;
+  history: DocData[];
 }
 
-const SideBar: React.FC<SideBarProps> = ({ isVisible, toggleSidebar, user }) => {
+const SideBar: React.FC<SideBarProps> = ({ isVisible, toggleSidebar, history }) => {
+
+ 
+  const { user, error, isLoading } = useUser();
+
+
+
   return (
     <div className={`sidebar p-4 ${isVisible ? 'visible' : ''}`}>
-        <FontAwesomeIcon icon={faX} onClick={toggleSidebar} className='p-4' />
+        <FontAwesomeIcon icon={faX} onClick={toggleSidebar} className='pb-4' />
+        <div className=''>Past Financial Advice</div>
         {
           user ? 
           (
-            <ul className="sidebar-menu">
-              <li className="sidebar-item">Home</li>
-              <li className="sidebar-item">About</li>
-              <li className="sidebar-item">Services</li>
-              <li className="sidebar-item">Contact</li>
-            </ul>
+            history.length > 0 ? (
+              history.map((item) => (
+                <div key={item.id} className="sidebar-item text-sm my-4">
+                  {item.fortune}
+                </div>
+              ))
+            ) : (
+              <div className="flex justify-center items-center h-1/2 text-center sidebar-item">
+                No history available
+              </div>
+            )
 
           ): <div className="flex justify-center items-center h-1/2 text-center sidebar-item">Please login to view history</div>
         }

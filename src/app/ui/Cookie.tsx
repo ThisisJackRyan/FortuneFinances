@@ -2,7 +2,11 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Image from 'next/image'
 import { url } from 'inspector';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
+
+import { db } from '../../config/firebase-config';
+import { addDoc, doc, getDoc , updateDoc, collection } from 'firebase/firestore';
 
 export default function Cookie() {
 
@@ -11,6 +15,7 @@ export default function Cookie() {
     const [currentImage, setCurrentImage] = useState('/images/justthecookie.png');
     const [apiResponse, setApiResponse] = useState(null);
     const [isFadeOutComplete, setIsFadeOutComplete] = useState(false);
+    const [enableButton, setEnableButton] = useState(false);
 
     const delay = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -28,18 +33,10 @@ export default function Cookie() {
       }, [currentImage]);
 
     const handleClick = async () => {
-        enableDisableButton(true);
+        setEnableButton(true);
         setHasClicked(true);
-        console.log('clicked');
         setAwaitingAPI(true);
     };
-
-    const enableDisableButton = (bool: boolean): void => {
-        const button = document.getElementById('fortuneButton');
-        if (button) {
-            (button as HTMLButtonElement).disabled = bool;
-        }
-    }
 
     const [fortune, setFortune] = useState('');
 
@@ -54,8 +51,11 @@ export default function Cookie() {
             await delay(2000);
             setFortune(data.fortune);
             setAwaitingAPI(false);
-            console.log('here');
             setCurrentImage('/images/fortuneCookieAnim3.gif');
+
+            addFortune(data.fortune);
+
+            
         } catch (error) {
             console.error('Failed to fetch fortune:', error);
             setCurrentImage('/images/justthecookie.png');
@@ -63,11 +63,24 @@ export default function Cookie() {
         }
         setHasClicked(false);
     };
+
+    const { user, error, isLoading } = useUser();
+
+    async function addFortune(fortune: string = '') {
+        if (user && fortune !== '') {
+            await addDoc(collection(db, "history"), {
+                dateReceived: new Date(),
+                fortune: fortune,
+                userId: user.sub,
+                userInput: "",
+            });
+        }
+    }
   
     return (
         <div>
             <p className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 paper'>{fortune}</p>
-            <button onClick={getFortune} className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' id='fortuneButton'>
+            <button disabled={enableButton} onClick={getFortune} className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' id='fortuneButton'>
                 <img 
                     src={currentImage} 
                     alt="cookie" 
@@ -75,9 +88,9 @@ export default function Cookie() {
                 />
             </button>
 
-            <button className={`${fortune !== "" ? 'block' : 'hidden'}`} onClick={ () => {
+            <button className={`${fortune !== "" ? 'block' : 'opacity-0'}`} onClick={ () => {
                 setFortune('');
-                enableDisableButton(false);
+                setEnableButton(false);
                 setIsFadeOutComplete(false);
                 setCurrentImage('/images/justthecookie.png');
             }}>

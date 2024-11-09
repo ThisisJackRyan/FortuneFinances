@@ -3,9 +3,7 @@ import OpenAI from 'openai';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-  console.log('openai', process.env.OPENAI_API_KEY);
   try {
-    console.log('openai');
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
