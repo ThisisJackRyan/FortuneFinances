@@ -28,14 +28,18 @@ export default function Cookie() {
       }, [currentImage]);
 
     const handleClick = async () => {
-        const button = document.getElementById('fortuneButton');
-        if (button) {
-            (button as HTMLButtonElement).disabled = true;
-        }
+        enableDisableButton(true);
         setHasClicked(true);
         console.log('clicked');
         setAwaitingAPI(true);
     };
+
+    const enableDisableButton = (bool: boolean): void => {
+        const button = document.getElementById('fortuneButton');
+        if (button) {
+            (button as HTMLButtonElement).disabled = bool;
+        }
+    }
 
     const [fortune, setFortune] = useState('');
 
@@ -49,17 +53,20 @@ export default function Cookie() {
             const data = await response.json();
             await delay(2000);
             setFortune(data.fortune);
+            setAwaitingAPI(false);
             console.log('here');
             setCurrentImage('/images/fortuneCookieAnim3.gif');
         } catch (error) {
             console.error('Failed to fetch fortune:', error);
             setCurrentImage('/images/justthecookie.png');
+            setAwaitingAPI(false);
         }
+        setHasClicked(false);
     };
   
     return (
         <div>
-            <p className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 paper'>{fortune}</p>
+            <p className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 paper'>{fortune}</p>
             <button onClick={getFortune} className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' id='fortuneButton'>
                 <img 
                     src={currentImage} 
@@ -67,7 +74,15 @@ export default function Cookie() {
                     className={`${currentImage === '/images/fortuneCookieAnim3.gif' ? 'fade-out' : ''} ${ isFadeOutComplete && fortune !== '' ? 'hidden' : ''} max-h-72`}
                 />
             </button>
-            
+
+            <button className={`${fortune !== "" ? 'block' : 'hidden'}`} onClick={ () => {
+                setFortune('');
+                enableDisableButton(false);
+                setIsFadeOutComplete(false);
+                setCurrentImage('/images/justthecookie.png');
+            }}>
+                Give me another fortune
+            </button>
         </div>
     );
 };

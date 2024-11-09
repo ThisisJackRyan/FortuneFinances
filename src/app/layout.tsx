@@ -36,6 +36,7 @@ export default function RootLayout({
       <UserProvider>
         <body
           className={`${geistSans.variable} ${geistMono.variable} ${sourGummy.variable} antialiased`}
+          style={{fontFamily: sourGummy.style.fontFamily}}
         >
           {children}
         </body>

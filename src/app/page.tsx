@@ -23,8 +23,8 @@ export default function Home() {
   return (
     <div className="h-full">
       <div className="flex flex-col items-center justify-evenly h-full">
-        <div className="text-center text-4xl">Fortune Finances</div>
-        <Cookie />
+        <div className="text-center text-4xl mb-5">Fortune Finances</div>
+        <div className="mt-52"><Cookie /></div>
       </div>
       <div className=" absolute top-0 p-4 text-2xl historyButton">
         <FontAwesomeIcon icon={faClockRotateLeft}  onClick={toggleSidebar} className={isSidebarVisible ? 'hidden' : 'visible'}/>
@@ -48,6 +48,9 @@ export default function Home() {
         </div>
         <div className="flex"></div>
         <div className="flex"></div>
+      </div>
+      <div className="flex flex-col items-center justify-evenly">
+        <p className="absolute bottom-0 text-center mb-3">(this is not financial advice)</p>
       </div>
     </div>
   );
