@@ -1,15 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from 'openai';
-import 'dotenv/config';
-
-require('dotenv').config()
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
-
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
+  console.log('openai', process.env.OPENAI_API_KEY);
   try {
+    console.log('openai');
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
@@ -27,6 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     res.status(200).json({ fortune: completion.choices[0].message.content });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch fortune' });
+    console.error('Error message:', error);
+    res.status(500).json({ error: error });
   }
 }

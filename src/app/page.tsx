@@ -1,4 +1,3 @@
-// import Image from "next/image";
 "use client";
 
 import Cookie from "./ui/Cookie";
@@ -9,8 +8,7 @@ export default function Home() {
 
   const getFortune = async () => {
     try {
-      console.log( await fetch('./api/openai-api'));
-      const response = await fetch('./api/openai-api');
+      const response = await fetch('/api/openai-api');
       const data = await response.json();
       setFortune(data.fortune);
     } catch (error) {
