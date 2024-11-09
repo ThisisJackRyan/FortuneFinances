@@ -107,3 +107,8 @@ html, body {
 .sidebar-item:hover {
   background-color: #f0f0f0;
 } */
+
+.fade-out{
+  transition: opacity 1s;
+  opacity: 0;
+}
