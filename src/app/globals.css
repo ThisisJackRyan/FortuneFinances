@@ -21,7 +21,7 @@ html, body {
 }
 
 .historyButton svg{
-  color: lightgray;
+  color: rgb(193, 193, 193);
   cursor: pointer;
 }
 .historyButton svg:hover{
@@ -35,14 +35,16 @@ html, body {
   left: -250px; 
   width: 250px;
   height: 100%;
-  background-color: #fff;
+  background-color: rgb(245, 245, 245);
   transition: left 0.3s ease;
 }
 
 .sidebar.visible {
   left: 0;
 }
-
+.sidebar-item{
+  color:rgb(121, 121, 121);
+}
 /*
 .sidebar {
   position: fixed;
