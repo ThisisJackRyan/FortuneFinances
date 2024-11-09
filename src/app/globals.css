@@ -114,3 +114,13 @@ html, body {
   transition: opacity 1s;
   opacity: 0;
 }
+
+.initial-scale{
+  transform: scale(1);
+}
+
+.scale-out{
+  transition: transform 1s;
+  transform: scale(0);
+  transition-delay: 1s;
+}

@@ -13,6 +13,13 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+const sourGummy = localFont({
+  src: "./fonts/SourGummy-VariableFont_wdth,wght.ttf",
+  variable: "--font-sour-gummy",
+  weight: "100 900",
+});
+
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,7 +35,7 @@ export default function RootLayout({
     <html lang="en">
       <UserProvider>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} ${sourGummy.variable} antialiased`}
         >
           {children}
         </body>
