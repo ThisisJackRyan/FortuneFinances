@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image'
 import { url } from 'inspector';
 
@@ -10,8 +10,22 @@ export default function Cookie() {
     const [awaitingAPI, setAwaitingAPI] = useState(false);
     const [currentImage, setCurrentImage] = useState('/images/justthecookie.png');
     const [apiResponse, setApiResponse] = useState(null);
+    const [isFadeOutComplete, setIsFadeOutComplete] = useState(false);
 
     const delay = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
+
+
+    useEffect(() => {
+        if (currentImage === '/images/fortuneCookieAnim3.gif') {
+          const timer = setTimeout(() => {
+            setIsFadeOutComplete(true);
+          }, 1000); // 1 second to match the CSS transition duration
+    
+          return () => clearTimeout(timer);
+        } else {
+          setIsFadeOutComplete(false);
+        }
+      }, [currentImage]);
 
     const handleClick = async () => {
         const button = document.getElementById('fortuneButton');
@@ -45,12 +59,12 @@ export default function Cookie() {
   
     return (
         <div>
-            <p className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>{fortune}</p>
+            <p className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 paper'>{fortune}</p>
             <button onClick={getFortune} className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' id='fortuneButton'>
                 <img 
                     src={currentImage} 
                     alt="cookie" 
-                    className={`${currentImage === '/images/fortuneCookieAnim3.gif' ? 'fade-out' : ''} max-h-72`}
+                    className={`${currentImage === '/images/fortuneCookieAnim3.gif' ? 'fade-out' : ''} ${ isFadeOutComplete && fortune !== '' ? 'hidden' : ''} max-h-72`}
                 />
             </button>
             
