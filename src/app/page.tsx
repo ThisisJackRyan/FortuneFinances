@@ -8,7 +8,7 @@ import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { db } from '../config/firebase-config';
 import { getDocs, collection, query, where, deleteDoc } from "firebase/firestore";
-import { DocData } from "../config/DocData";
+import { DocData } from "../config/DocDa";
 
 
 
