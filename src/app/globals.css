@@ -35,7 +35,7 @@ html, body {
   position: fixed;
   top: 0;
   left: -350px; 
-  width: 350px;
+  max-width: 350px;
   height: 100%;
   background-color: rgb(245, 245, 245);
   transition: left 0.3s ease;
@@ -52,7 +52,7 @@ html, body {
   padding: 20px;
   border-radius: 2px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 120rem;
+  max-width: 38rem;
 }
 
 .fade-out{
@@ -68,4 +68,31 @@ html, body {
   transition: transform 1s;
   transform: scale(0);
   transition-delay: 1s;
+}
+
+@media screen and (max-width: 1280px) {
+  .paper{
+    max-width: 20rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .sidebar.visible {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: none;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    z-index: 1;
+  }
+  .sidebar.visible > .max-h{
+    max-width: 38rem;
+    margin: auto;
+    padding: 2px;
+
+  }
+  .paper {
+    width: 90%;
+  }
 }

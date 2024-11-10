@@ -78,7 +78,7 @@ export default function Cookie() {
   
     return (
         <div>
-            <p className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 paper'>{fortune}</p>
+            <p className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 paper ${fortune === '' ? 'hidden' : ''}`}>{fortune}</p>
             <button disabled={enableButton} onClick={getFortune} className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' id='fortuneButton'>
                 <img 
                     src={currentImage} 
