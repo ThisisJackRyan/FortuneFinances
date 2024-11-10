@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { DocData } from "../../config/DocDa";
+import { DocData } from "../../config/DocData";
 
 
 interface SideBarProps {
