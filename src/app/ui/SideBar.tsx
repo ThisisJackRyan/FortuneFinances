@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import { useUser } from '@auth0/nextjs-auth0/client';
@@ -13,11 +12,8 @@ interface SideBarProps {
 }
 
 const SideBar: React.FC<SideBarProps> = ({ isVisible, toggleSidebar, history }) => {
-
- 
+  
   const { user, error, isLoading } = useUser();
-
-
 
   return (
     <div className={`sidebar p-4 ${isVisible ? 'visible' : ''}`}>
