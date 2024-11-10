@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const userInput = message;
       console.log(userInput);
 
-      var randomNumber = 1;
+      let randomNumber = 1;
 
       const generateRandomNumber = () => {
         const min = 1;
