@@ -48,7 +48,6 @@ export default function Cookie() {
         try {
             const response = await fetch('/api/openai-api');
             const data = await response.json();
-            await delay(2000);
             setFortune(data.fortune);
             setAwaitingAPI(false);
             setCurrentImage('/images/fortuneCookieAnim3.gif');
