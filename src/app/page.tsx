@@ -36,6 +36,9 @@ export default function Home() {
         userId: data.userId 
       });
     })
+
+    temp.sort((a: DocData, b: DocData) => b.dateReceived.getTime() - a.dateReceived.getTime());
+    
     setHistory(temp);
   }
 
