@@ -16,6 +16,8 @@ export default function Cookie() {
     const [apiResponse, setApiResponse] = useState(null);
     const [isFadeOutComplete, setIsFadeOutComplete] = useState(false);
     const [enableButton, setEnableButton] = useState(false);
+    const [userInput, setUserInput] = useState('');
+    const [showInput, setShowInput] = useState(false);
 
     const delay = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -46,13 +48,20 @@ export default function Cookie() {
         await delay(1410);
         setCurrentImage('/images/fortuneCookieAnim2.gif');
         try {
-            const response = await fetch('/api/openai-api');
+            const response = await fetch('/api/openai-api',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userInput }),
+            });
             const data = await response.json();
             setFortune(data.fortune);
             setAwaitingAPI(false);
             setCurrentImage('/images/fortuneCookieAnim3.gif');
 
             addFortune(data.fortune);
+            setUserInput('');
 
             
         } catch (error) {
@@ -77,7 +86,7 @@ export default function Cookie() {
     }
   
     return (
-        <div>
+        <div className='flex flex-col justify-center gap-4'>
             <p className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 paper ${fortune === '' ? 'hidden' : ''}`}>{fortune}</p>
             <button disabled={enableButton} onClick={getFortune} className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' id='fortuneButton'>
                 <img 
@@ -92,9 +101,30 @@ export default function Cookie() {
                 setEnableButton(false);
                 setIsFadeOutComplete(false);
                 setCurrentImage('/images/justthecookie.png');
+                setShowInput(false);
             }}>
                 Give me another fortune
             </button>
+            {showInput === true && fortune === "" ? (
+                <form onSubmit={(e) => {
+                    e.preventDefault();
+                    getFortune();
+                }}>
+                    <div className='userInput'>
+                        <input 
+                            placeholder='Message' 
+                            value={userInput} 
+                            onChange={(e) => setUserInput(e.target.value)} 
+                            className=''
+                        />
+                    </div>
+                </form>
+                
+            ) : (fortune === "") ? (
+                <div onClick={() => setShowInput(!showInput)} className=' cursor-pointer text-gray-on-hover'>Want to get a custom Fortune?</div>
+            ) : null
+            }
+            
         </div>
     );
 };

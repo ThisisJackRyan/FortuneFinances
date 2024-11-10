@@ -69,6 +69,23 @@ html, body {
   transform: scale(0);
   transition-delay: 1s;
 }
+.userInput{
+  background-color: rgb(245, 245, 245);
+  padding: 10px;
+  border-radius: 26px;
+  width: 30rem;
+}
+.userInput > input{
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  outline: none;
+  padding-left: 1rem;
+  padding-right: 1rem; ;
+}
+.text-gray-on-hover:hover{
+  color: gray;
+}
 
 @media screen and (max-width: 1280px) {
   .paper{
@@ -95,4 +112,13 @@ html, body {
   .paper {
     width: 90%;
   }
+  .userInput{
+   margin: 1rem auto;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .userInput{
+    width: 20rem;
+   }
 }
