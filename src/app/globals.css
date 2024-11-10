@@ -20,14 +20,13 @@ html, body {
   background: var(--background);
 }
 
-.historyButton svg{
+.historyButton svg, .clearButton{
   color: rgb(193, 193, 193);
   cursor: pointer;
 }
-.historyButton svg:hover{
+.historyButton svg:hover,  .clearButton:hover{
   color: gray;
 }
- 
 
 .sidebar {
   position: fixed;

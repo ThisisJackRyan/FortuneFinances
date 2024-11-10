@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { db } from '../config/firebase-config';
-import { getDocs, collection, query, where } from "firebase/firestore";
+import { getDocs, collection, query, where, deleteDoc } from "firebase/firestore";
 import { DocData } from "../config/DocData";
 
 
@@ -21,6 +21,17 @@ export default function Home() {
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
   };
+
+  const clearHistory = async () => {
+    if (!user) return;
+    const q = query(collection(db, "history"), where("userId", "==", user.sub));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) =>{
+      deleteDoc(doc.ref);
+    })
+    toggleSidebar();
+    fetchHistory();
+  }
 
   const fetchHistory = async () => {
     if (!user) return;
@@ -38,7 +49,7 @@ export default function Home() {
     })
 
     temp.sort((a: DocData, b: DocData) => b.dateReceived.getTime() - a.dateReceived.getTime());
-    
+
     setHistory(temp);
   }
 
@@ -54,7 +65,7 @@ export default function Home() {
       </div>
       <div className=" absolute top-0 p-4 text-2xl historyButton">
         <FontAwesomeIcon icon={faClockRotateLeft}  onClick={toggleSidebar} className={isSidebarVisible ? 'hidden' : 'visible'}/>
-        <SideBar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar } history={history} />
+        <SideBar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar } history={history} clearHistory={clearHistory}  />
       </div>
       <div className=" absolute top-0 right-0 p-4 text-2xl historyButton">
         <div className="flex">
