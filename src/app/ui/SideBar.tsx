@@ -23,7 +23,7 @@ const SideBar: React.FC<SideBarProps> = ({ isVisible, toggleSidebar, history, cl
         <div className='text-xl clearButton' onClick={clearHistory}>Clear</div>
       </div>
         <div className=''>Past Financial Advice</div>
-        <div className='max-h-full overflow-y-auto'>
+        <div className='max-h overflow-y-auto'>
           {
             user ? 
             (
