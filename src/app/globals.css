@@ -27,6 +27,9 @@ html, body {
 .historyButton svg:hover,  .clearButton:hover{
   color: gray;
 }
+.max-h{
+  max-height: 90%;
+}
 
 .sidebar {
   position: fixed;
