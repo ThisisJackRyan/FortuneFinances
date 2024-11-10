@@ -34,7 +34,7 @@
     ".next/types/**/*.ts",
     "next-env.d.ts",
     "dist/types/**/*.ts",
-    "src/config/**/*.ts",
+    "src/config/**/*.ts"
   ],
   "exclude": [
     "node_modules"
